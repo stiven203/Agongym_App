@@ -1,0 +1,35 @@
+mutation checkoutCreate($input: CheckoutCreateInput!) {
+
+    checkoutCreate(input: $input) {
+        checkout {
+            id
+            webUrl
+            subtotalPriceV2{amount}
+            paymentDueV2{amount}
+            totalPriceV2{amount}
+
+            availableShippingRates{
+                ready
+                shippingRates{
+                    handle
+                    priceV2{amount}
+                    title
+                }
+            }
+
+            lineItems(first: 10) {
+                edges {
+                    node {
+                        title
+                        quantity
+                    }
+                }
+                }
+        }
+        checkoutUserErrors {
+            code
+            field
+            message
+        }
+    }
+}

@@ -1,0 +1,53 @@
+query product{
+    products(first: 100){
+        edges{
+            node{
+                id
+                title
+                availableForSale
+                description
+                productType
+
+                collections(first: 1) {
+                    edges {
+                        node {
+                            title
+                        }
+                    }
+                }
+
+                images(first: 4) {
+                    edges {
+                        node {
+                                id
+                                originalSrc
+                        }
+                    }
+                }
+                presentmentPriceRanges(first: 1){
+                    edges {
+                        node {
+                            maxVariantPrice{amount}
+                        }
+                    }
+                }
+                variants(first: 10){
+                    edges{
+                        node{
+                            id
+                            availableForSale
+                            sku
+                            title
+                            priceV2{amount}
+                            compareAtPriceV2{amount}
+
+                        }
+                    }
+                }
+
+
+
+            }
+        }
+    }
+}

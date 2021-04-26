@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_main">
+
+    <fragment
+        android:id="@+id/nav_man"
+        android:name="com.agongym.store.fragments.MenFragment"
+        android:label="@string/menu_men"
+        tools:layout="@layout/fragment_men" >
+        <action
+            android:id="@+id/action_nav_man_to_nav_main"
+            app:destination="@id/nav_main" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_women"
+        android:name="com.agongym.store.fragments.WomenFragment"
+        android:label="@string/menu_women"
+        tools:layout="@layout/fragment_women" >
+        <action
+            android:id="@+id/action_nav_women_to_nav_main"
+            app:destination="@id/nav_main" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_accessories"
+        android:name="com.agongym.store.fragments.AccessoriesFragment"
+        android:label="fragment_accessories"
+        tools:layout="@layout/fragment_accessories" >
+        <action
+            android:id="@+id/action_nav_accessories_to_nav_main"
+            app:destination="@id/nav_main" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_main"
+        android:name="com.agongym.store.fragments.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_nav_main_to_nav_women"
+            app:destination="@id/nav_women" />
+        <action
+            android:id="@+id/action_nav_main_to_nav_man"
+            app:destination="@id/nav_man" />
+        <action
+            android:id="@+id/action_nav_main_to_nav_accessories"
+            app:destination="@id/nav_accessories" />
+        <action
+            android:id="@+id/action_nav_main_to_nav_man2"
+            app:destination="@id/nav_man" />
+    </fragment>
+</navigation>

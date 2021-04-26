@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/checkout_navigation"
+    app:startDestination="@id/fragment_shipping_address">
+
+    <fragment
+        android:id="@+id/fragment_shipping_address"
+        android:name="com.agongym.store.fragments.ShippingAddressFragment"
+        android:label="fragment_shipping_address"
+        tools:layout="@layout/fragment_shipping_address" >
+        <action
+            android:id="@+id/action_shippingAddressFragment_to_confirmPaymentFragment"
+            app:destination="@id/fragment_confirm_payment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_confirm_payment"
+        android:name="com.agongym.store.fragments.ConfirmPaymentFragment"
+        android:label="fragment_confirm_payment"
+        tools:layout="@layout/fragment_confirm_payment" />
+</navigation>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+
+    <item
+
+        android:title="Buscar"
+        android:id="@+id/search_product"
+        android:icon="@drawable/ic_search_24"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView">
+
+    </item>
+
+    <item
+        android:id="@+id/cart_menu"
+        app:actionLayout="@layout/action_bar_notification_icon"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_baseline_shopping_bag_24"
+        android:title="@string/action_cart"
+
+        />
+
+
+</menu>

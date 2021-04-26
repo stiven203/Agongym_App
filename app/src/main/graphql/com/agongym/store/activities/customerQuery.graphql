@@ -1,0 +1,20 @@
+query customer($input: String!) {
+
+    customer (customerAccessToken: $input) {
+        firstName
+        defaultAddress{
+            id
+            firstName
+            lastName
+            address1
+            address2
+            city
+            country
+            province
+            zip
+            phone
+
+
+        }
+    }
+}

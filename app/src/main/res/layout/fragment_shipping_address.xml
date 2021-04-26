@@ -1,0 +1,179 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.agongym.store.fragments.ShippingAddressFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dirección de envío"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            >
+
+        </TextView>
+
+        <EditText
+
+            android:layout_marginTop="10dp"
+            android:id="@+id/checkout_name"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/edit_text_corners"
+            android:hint="@string/name_hint"
+            android:padding="10dp"
+            >
+
+        </EditText>
+
+        <EditText
+            android:layout_marginTop="10dp"
+            android:id="@+id/checkout_lastname"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/edit_text_corners"
+            android:hint="@string/lastname_hint"
+            android:padding="10dp"
+            >
+
+        </EditText>
+
+        <EditText
+            android:layout_marginTop="10dp"
+            android:id="@+id/checkout_address1"
+            android:layout_width="match_parent"
+            android:hint="@string/address1_hint"
+            android:layout_height="45dp"
+            android:padding="10dp"
+            android:background="@drawable/edit_text_corners"
+            >
+
+        </EditText>
+
+        <EditText
+            android:layout_marginTop="10dp"
+            android:id="@+id/checkout_address2"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:hint="@string/address2_hint"
+            android:padding="10dp"
+            android:background="@drawable/edit_text_corners"
+            >
+
+        </EditText>
+
+
+
+        <EditText
+            android:layout_marginTop="10dp"
+            android:id="@+id/checkout_zip"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/edit_text_corners"
+            android:hint="@string/zipcode_hint"
+            android:padding="10dp"
+            >
+
+        </EditText>
+
+        <EditText
+            android:layout_marginTop="10dp"
+            android:id="@+id/checkout_city"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/edit_text_corners"
+            android:hint="@string/city_hint"
+            android:padding="10dp"
+
+            >
+
+        </EditText>
+
+        <EditText
+            android:layout_marginTop="10dp"
+            android:id="@+id/checkout_province"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/edit_text_corners"
+            android:hint="@string/province_hint"
+            android:padding="10dp"
+
+            >
+
+        </EditText>
+
+        <EditText
+            android:layout_marginTop="10dp"
+            android:id="@+id/checkout_country"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/edit_text_corners"
+            android:hint="@string/country_hint"
+            android:padding="10dp">
+
+        </EditText>
+
+        <EditText
+            android:layout_marginTop="10dp"
+            android:id="@+id/checkout_phone"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/edit_text_corners"
+            android:hint="@string/phoneNumber_hint"
+            android:padding="10dp">
+
+        </EditText>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:id="@+id/linear_layout_checkout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/checkout_checkbox"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center">
+
+            </CheckBox>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Guardar mi información y consultar más rápidamente la próxima vez">
+
+            </TextView>
+
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/checkout_button"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:text="Continuar con envíos"
+            >
+
+        </Button>
+
+
+    </LinearLayout>
+
+
+
+</FrameLayout>

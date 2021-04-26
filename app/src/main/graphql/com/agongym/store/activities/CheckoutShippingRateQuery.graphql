@@ -1,0 +1,19 @@
+query checkoutShippingRate($input: ID!) {
+
+    node(id: $input) {
+        ... on Checkout {
+            id
+            webUrl
+            availableShippingRates {
+                ready
+                shippingRates {
+                    handle
+                    priceV2 {
+                        amount
+                    }
+                    title
+                }
+            }
+        }
+    }
+}
