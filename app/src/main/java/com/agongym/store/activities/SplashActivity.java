@@ -30,7 +30,7 @@ import okhttp3.OkHttpClient;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private final int SPLASH_LENGTH = 1000;
+    private final int SPLASH_LENGTH = 2500;
     private Cursor cursor;
 
     Intent mainIntent;
@@ -187,7 +187,7 @@ public class SplashActivity extends AppCompatActivity {
                         Log.d("PRODUCTOS EN BBDD", Integer.toString(cursor.getCount()));
 
 
-                        //BBDD Vacía
+                        //Comprobación BBDD
                         if(cursor.getCount()==0){
                             Log.d("MESESAGE", "BBDD VACÍA");
                             insertDataBase(products);
@@ -197,7 +197,8 @@ public class SplashActivity extends AppCompatActivity {
 
                         }
                         else{
-                            Log.d("MESESAGE", "YA EXISTE BBDD");
+                            Log.e("MESESAGE", "YA EXISTE BBDD --> ACTUALIZAR");
+                            updateDataBase(products);
                         }
                     }
 
@@ -207,6 +208,140 @@ public class SplashActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    private void updateDataBase(ProductQuery.Products products) {
+
+        String compareAtPrice="";
+
+        String[] selectionArgs=null;
+        String selection ="";
+        int o=0;
+        int t=0;
+        int y=0;
+
+        try {
+            ContentValues productContentValues[] = new ContentValues[products.edges.size()];
+            ContentValues imageContentValues[] = null;
+            ContentValues variantContentValues[]=null;
+
+
+
+            for (int i=0; i<products.edges.size() ;i++) //productos
+            {
+                Log.e("Producto a actualizar", products.edges.get(i).node.title );
+
+
+                String collection="";
+
+                if(products.edges.get(i).node.collections.edges.size()==0){
+                    collection="OUTLET";
+                }
+                else{
+
+                    if (products.edges.get(i).node.collections.edges.get(0).node.title().toString().equals("SOCKS")){
+                        collection="ACCESSORIES";
+                    }else if(products.edges.get(i).node.collections.edges.get(0).node.title().toString().equals("UNDERWEAR")){
+                        collection="ACCESSORIES";
+                    }else{
+                        collection = products.edges.get(i).node.collections.edges.get(0).node.title().toString();
+                    }
+
+                }
+
+
+
+                ProductModel productModel = new ProductModel(products.edges.get(i).node.id,products.edges.get(i).node.title,String.valueOf(products.edges.get(i).node.availableForSale()),
+                        products.edges.get(i).node.description,products.edges.get(i).node.productType,products.edges.get(i).node.images().edges.get(0).node.originalSrc.toString(),
+                        products.edges.get(i).node.presentmentPriceRanges.edges.get(0).node.maxVariantPrice.amount.toString(), collection);
+
+
+                selectionArgs = new String[]{products.edges.get(i).node.id};
+                selection = DataContract.ProductInternalClass.ID + " = ?";
+
+                o = getContentResolver().update(DataContract.ProductInternalClass.buildProductUri(),
+                        DataContract.ProductInternalClass.ProductToContentValues(productModel),selection,selectionArgs);
+
+                Log.e("Num. Productos actualizados",""+o);
+
+
+                //productContentValues[i] = DataContract.ProductInternalClass.ProductToContentValues(productModel);
+
+                imageContentValues = new ContentValues[products.edges().get(i).node.images.edges().size()];
+                for(int j=0; j<products.edges().get(i).node.images.edges().size(); j++)
+                { //imagenes
+
+                    ImageModel imageModel = new ImageModel(products.edges.get(i).node.images.edges.get(j).node.id,
+                            products.edges.get(i).node.id,products.edges.get(i).node.images.edges.get(j).node.originalSrc.toString());
+
+                    selectionArgs = new String[]{products.edges.get(i).node.images.edges.get(j).node.id};
+                    selection = DataContract.ImageInternalClass.ID + " = ?";
+
+                    y = getContentResolver().update(DataContract.ImageInternalClass.buildImageUri(),
+                            DataContract.ImageInternalClass.ImageToContentValues(imageModel),selection,selectionArgs);
+
+                    Log.e("Num. Imagenes actualizadas",""+y);
+
+                    //imageContentValues[j] = DataContract.ImageInternalClass.ImageToContentValues(imageModel);
+                }
+
+                //Integer p =getContentResolver().bulkInsert(DataContract.ImageInternalClass.buildImageUri(), imageContentValues);
+                //Log.d("Numero de Insercciones de IMAGE", Integer.toString(p) );
+
+                variantContentValues = new ContentValues[products.edges().get(i).node.variants.edges().size()];
+                for(int z=0; z<products.edges().get(i).node.variants.edges.size(); z++)//variantes
+                {
+
+                    Log.e("Variante agregar", products.edges.get(i).node.variants.edges.get(z).node.title );
+
+
+                    if(products.edges.get(i).node().variants.edges.get(z).node.compareAtPriceV2==null){
+                        compareAtPrice="";
+                    }
+                    else{
+                        compareAtPrice=products.edges.get(i).node.variants.edges.get(z).node.compareAtPriceV2.amount.toString();
+                    }
+                    String available = "";
+                    if(products.edges().get(i).node.variants.edges.get(z).node.availableForSale==true){
+                        available = "true";
+                    }
+                    else {
+                        available="false";
+                    }
+
+                    Log.e("DISPONIBLE",available);
+
+                    VariantModel variantModel = new VariantModel(products.edges.get(i).node.variants.edges.get(z).node.id,
+                            products.edges.get(i).node.id,available,
+                            products.edges.get(i).node.variants.edges.get(z).node.sku,products.edges.get(i).node.variants.edges.get(z).node.title,
+                            products.edges.get(i).node.variants.edges.get(z).node.priceV2.amount.toString(),
+                            compareAtPrice);
+
+                    //variantContentValues[z] = DataContract.VariantInternalClass.VariantToContentValues(variantModel);
+
+                    selectionArgs = new String[]{products.edges.get(i).node.variants.edges.get(z).node.id};
+                    selection = DataContract.VariantInternalClass.ID + " = ?";
+
+                    t = getContentResolver().update(DataContract.VariantInternalClass.buildVariantUri(),
+                            DataContract.VariantInternalClass.VariantToContentValues(variantModel),selection,selectionArgs);
+
+                    Log.e("Num. Variantes actualizadas",""+t);
+                }
+
+                //Integer r =getContentResolver().bulkInsert(DataContract.VariantInternalClass.buildVariantUri(), variantContentValues);
+                //Log.d("Numero de Insercciones de VARIANT", Integer.toString(r) );
+
+
+
+            }
+
+            //Integer o =getContentResolver().bulkInsert(DataContract.ProductInternalClass.buildProductUri(), productContentValues);
+
+            Log.e("MENSAJE", "Todos los productos actualizados!");
+
+        }catch (Exception e){
+            Log.e("Exception ", e.getMessage() );
+        }
     }
 
 
@@ -222,14 +357,31 @@ public class SplashActivity extends AppCompatActivity {
 
                 for (int i=0; i<products.edges.size() ;i++)
                 {
+                    Log.e("Producto a agregar", products.edges.get(i).node.title );
+                    //Log.e("Numero de colecciones del producto", ""+products.edges.get(i).node.collections.edges.size());
+                    //Log.e("Colección del producto", products.edges.get(i).node.collections.edges.get(0).node.title);
+
                     String collection="";
-                    if (products.edges.get(i).node.collections.edges.get(0).node.title().toString().equals("SOCKS")){
-                        collection="ACCESSORIES";
-                    }else if(products.edges.get(i).node.collections.edges.get(0).node.title().toString().equals("UNDERWEAR")){
-                        collection="ACCESSORIES";
-                    }else{
-                        collection = products.edges.get(i).node.collections.edges.get(0).node.title().toString();
+
+                    if(products.edges.get(i).node.collections.edges.size()==0){
+                        collection="OUTLET";
+                        Log.e("HOLA", "ENTRA AQUI");
                     }
+                    else{
+
+                        if (products.edges.get(i).node.collections.edges.get(0).node.title().toString().equals("SOCKS")){
+                            collection="ACCESSORIES";
+                        }else if(products.edges.get(i).node.collections.edges.get(0).node.title().toString().equals("UNDERWEAR")){
+                            collection="ACCESSORIES";
+                        }else{
+                            collection = products.edges.get(i).node.collections.edges.get(0).node.title().toString();
+                        }
+
+                    }
+
+
+
+
 
 
                     ProductModel productModel = new ProductModel(products.edges.get(i).node.id,products.edges.get(i).node.title,String.valueOf(products.edges.get(i).node.availableForSale()),
@@ -251,7 +403,10 @@ public class SplashActivity extends AppCompatActivity {
                     Log.d("Numero de Insercciones de IMAGE", Integer.toString(p) );
 
                     variantContentValues = new ContentValues[products.edges().get(i).node.variants.edges().size()];
-                    for(int z=0; z<products.edges().get(i).node.variants.edges.size(); z++){
+                    for(int z=0; z<products.edges().get(i).node.variants.edges.size(); z++)
+                    {
+
+                        Log.e("Variante agregar", products.edges.get(i).node.variants.edges.get(z).node.title );
 
 
                         if(products.edges.get(i).node().variants.edges.get(z).node.compareAtPriceV2==null){
@@ -277,7 +432,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 }
                 Integer o =getContentResolver().bulkInsert(DataContract.ProductInternalClass.buildProductUri(), productContentValues);
-                Log.d("Numero de Insercciones de PRODUCT", Integer.toString(o) );
+                Log.e("Numero de Insercciones de PRODUCT", Integer.toString(o) );
 
         }catch (Exception e){
             Log.e("Exception ", e.getMessage() );

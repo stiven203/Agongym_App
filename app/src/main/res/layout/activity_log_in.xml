@@ -23,7 +23,7 @@
             android:id="@+id/layout_log_in"
             android:layout_width="350dp"
             android:layout_height="300dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="50dp">
 
@@ -119,7 +119,7 @@
 
         <TextView
 
-            android:layout_marginTop="270dp"
+            android:layout_marginTop="150dp"
             android:layout_marginRight="30dp"
             android:id="@+id/skip_text_view"
             android:layout_gravity="right"

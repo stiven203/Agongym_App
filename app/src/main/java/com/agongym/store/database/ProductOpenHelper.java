@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class ProductOpenHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "products.db";
-    public static final int DATABASE_VERSION = 9;
+    public static final int DATABASE_VERSION = 10;
 
     //TABLE NAMES
     public static final String PRODUCTS_TABLE = "PRODUCTS";
