@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class ProductOpenHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "products.db";
-    public static final int DATABASE_VERSION = 10;
+    public static final int DATABASE_VERSION = 15;
 
     //TABLE NAMES
     public static final String PRODUCTS_TABLE = "PRODUCTS";
@@ -15,6 +15,7 @@ public class ProductOpenHelper extends SQLiteOpenHelper {
     public static final String VARIANTS_TABLE = "VARIANTS";
     public static final String CART_TABLE = "CART";
     public static final String CUSTOMER_TABLE = "CUSTOMER";
+    public static final String ORDERS_TABLE = "ORDERS";
 
     //CREATE PRODUCTS TABLE
     public static final String CREATE_PRODUCTS_TABLE = "create table "
@@ -71,15 +72,21 @@ public class ProductOpenHelper extends SQLiteOpenHelper {
             + DataContract.CartInternalClass._ID + " integer primary key autoincrement, "
             + DataContract.CustomerInternalClass.ACCESS_TOKEN + " text not null, "
             + DataContract.CustomerInternalClass.ACCESS_TOKEN_EXPIRES_AT + " text not null, "
-            + DataContract.CustomerInternalClass.ADDRESS_1 + " text, "
-            + DataContract.CustomerInternalClass.ADDRESS_2 + " text, "
-            + DataContract.CustomerInternalClass.CITY + " text, "
-            + DataContract.CustomerInternalClass.COUNTRY + " text, "
             + DataContract.CustomerInternalClass.FIRST_NAME + " text, "
             + DataContract.CustomerInternalClass.LAST_NAME + " text, "
-            + DataContract.CustomerInternalClass.PHONE + " text, "
-            + DataContract.CustomerInternalClass.ZIP + " text, "
-            + DataContract.CustomerInternalClass.PROVINCE + " text "
+            + DataContract.CustomerInternalClass.EMAIL + " text "
+
+            + ");";
+
+    //CREATE ORDERS TABLE
+    public static final String CREATE_ORDERS_TABLE = "create table "
+            + ORDERS_TABLE + "( "
+            + DataContract.OrderInternalClass._ID + " integer primary key autoincrement, "
+            + DataContract.OrderInternalClass.CUSTOMER_ACCESS_TOKEN + " text not null, "
+            + DataContract.OrderInternalClass.NAME + " text, "
+            + DataContract.OrderInternalClass.PRICE + " text, "
+            + DataContract.OrderInternalClass.PROCESSED_AT + " text "
+
             + ");";
 
 
@@ -96,6 +103,7 @@ public class ProductOpenHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_VARIANTS_TABLE);
         db.execSQL(CREATE_CART_TABLE);
         db.execSQL(CREATE_CUSTOMER_TABLE);
+        db.execSQL(CREATE_ORDERS_TABLE);
     }
 
     @Override
@@ -105,6 +113,7 @@ public class ProductOpenHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + VARIANTS_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + CART_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + CUSTOMER_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + ORDERS_TABLE);
 
         //onCreate(db);
         db.execSQL(CREATE_PRODUCTS_TABLE);
@@ -112,6 +121,7 @@ public class ProductOpenHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_VARIANTS_TABLE);
         db.execSQL(CREATE_CART_TABLE);
         db.execSQL(CREATE_CUSTOMER_TABLE);
+        db.execSQL(CREATE_ORDERS_TABLE);
     }
 
 }

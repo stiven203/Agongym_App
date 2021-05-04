@@ -19,6 +19,7 @@ public class ProductContentProvider extends ContentProvider {
     public static final String VARIANTS_TABLE = "variants";
     public static final String CART_TABLE = "cart";
     public static final String CUSTOMER_TABLE = "customer";
+    public static final String ORDERS_TABLE = "orders";
 
 
     private ProductOpenHelper database;
@@ -28,12 +29,14 @@ public class ProductContentProvider extends ContentProvider {
     private static final int VARIANTS = 300;
     private static final int CART = 400;
     private static final int CUSTOMER = 500;
+    private static final int ORDERS = 600;
 
     public static final String PRODUCTS_BASE_PATH = "products";
     public static final String IMAGES_BASE_PATH = "images";
     public static final String VARIANTS_BASE_PATH = "variants";
     public static final String CART_BASE_PATH = "cart";
     public static final String CUSTOMER_BASE_PATH = "customer";
+    public static final String ORDERS_BASE_PATH = "orders";
 
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static
@@ -43,6 +46,7 @@ public class ProductContentProvider extends ContentProvider {
             sURIMatcher.addURI(AUTHORITY, VARIANTS_BASE_PATH, VARIANTS);
             sURIMatcher.addURI(AUTHORITY, CART_BASE_PATH, CART);
             sURIMatcher.addURI(AUTHORITY, CUSTOMER_BASE_PATH, CUSTOMER);
+            sURIMatcher.addURI(AUTHORITY, ORDERS_BASE_PATH, ORDERS);
         }
 
 
@@ -68,6 +72,9 @@ public class ProductContentProvider extends ContentProvider {
                 break;
             case CUSTOMER:
                 rowsDeleted = sqlDB.delete(ProductOpenHelper.CUSTOMER_TABLE,selection,selectionArgs);
+                break;
+            case ORDERS:
+                rowsDeleted = sqlDB.delete(ProductOpenHelper.ORDERS_TABLE,selection,selectionArgs);
                 break;
 
             default:
@@ -114,6 +121,10 @@ public class ProductContentProvider extends ContentProvider {
                 id = sqlDB.insert(ProductOpenHelper.CUSTOMER_TABLE, null, values);
                 basePath = CUSTOMER_BASE_PATH;
                 break;
+            case ORDERS:
+                id = sqlDB.insert(ProductOpenHelper.ORDERS_TABLE, null, values);
+                basePath = ORDERS_BASE_PATH;
+                break;
 
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -156,6 +167,9 @@ public class ProductContentProvider extends ContentProvider {
             case CUSTOMER:
                 queryBuilder.setTables(ProductOpenHelper.CUSTOMER_TABLE);
                 break;
+            case ORDERS:
+                queryBuilder.setTables(ProductOpenHelper.ORDERS_TABLE);
+                break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }
@@ -192,6 +206,9 @@ public class ProductContentProvider extends ContentProvider {
                 break;
             case CUSTOMER:
                 rowsUpdated = sqlDB.update(ProductOpenHelper.CUSTOMER_TABLE, values,selection,selectionArgs);
+                break;
+            case ORDERS:
+                rowsUpdated = sqlDB.update(ProductOpenHelper.ORDERS_TABLE, values,selection,selectionArgs);
                 break;
 
             default:

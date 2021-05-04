@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context="com.agongym.store.activities.ProductDetailsActivity">
 
+
+
     <com.denzcoskun.imageslider.ImageSlider
         android:id="@+id/slider"
         android:layout_width="409dp"
@@ -24,10 +26,16 @@
 
     </com.denzcoskun.imageslider.ImageSlider>
 
+
+
+
+
     <TableLayout
+        android:id="@+id/table_layout"
         android:layout_width="372dp"
-        android:layout_height="402dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="140dp"
+
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,12 +57,14 @@
             android:layout_height="18dp">
 
             <Button
+                android:fontFamily="@font/montserrat"
                 android:id="@+id/buttonMinus"
                 android:layout_width="77dp"
                 android:layout_height="wrap_content"
                 android:text="@string/minus_button" />
 
             <TextView
+                android:fontFamily="@font/montserrat"
                 android:id="@+id/quantityTextView"
                 android:layout_width="217dp"
                 android:layout_height="wrap_content"
@@ -64,6 +74,7 @@
                 android:textSize="18sp" />
 
             <Button
+                android:fontFamily="@font/montserrat"
                 android:id="@+id/buttonPlus"
                 android:layout_width="77dp"
                 android:layout_height="wrap_content"
@@ -75,6 +86,7 @@
             android:layout_height="match_parent">
 
             <Button
+                android:fontFamily="@font/montserrat"
                 android:id="@+id/buttonAddToCart"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -82,16 +94,48 @@
                 android:text="@string/addtocart_button" />
         </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+         </TableLayout>
 
-            <TextView
-                android:id="@+id/descriptionTextView"
-                android:layout_width="match_parent"
-                android:layout_height="274dp"
-                android:layout_span="3"
-                android:text="TextView" />
-        </TableRow>
-    </TableLayout>
+
+    <LinearLayout
+
+        android:layout_width="372dp"
+        android:layout_height="300dp"
+        android:orientation="vertical"
+        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.491"
+        android:layout_marginTop="-20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/table_layout">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+
+                <TextView
+                    android:id="@+id/descriptionTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_span="3"
+                    android:fontFamily="@font/montserrat"
+                    android:text="TextView">
+
+                </TextView>
+
+
+
+
+        </ScrollView>
+
+
+    </LinearLayout>
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

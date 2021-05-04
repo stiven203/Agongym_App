@@ -11,6 +11,7 @@ import android.widget.GridView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.agongym.store.activities.ProductDetailsActivity;
@@ -30,6 +31,9 @@ public class AccessoriesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_accessories, container, false);
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("ΛGONGYM");
+
         return root;
     }
 

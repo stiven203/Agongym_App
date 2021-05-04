@@ -5,16 +5,41 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:icon="@drawable/ic_t_shirt"
+            android:fontFamily="@font/montserrat"
             android:id="@+id/nav_man"
-            android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_men" />
         <item
+            android:icon="@drawable/ic_t_shirt"
+            android:fontFamily="@font/montserrat"
             android:id="@+id/nav_women"
-            android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_women" />
         <item
+            android:icon="@drawable/ic_beanie_2"
+            android:fontFamily="@font/montserrat"
             android:id="@+id/nav_accessories"
-            android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_accesories" />
+        <item
+            android:icon="@drawable/ic_t_shirt"
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/nav_outlet"
+            android:title="@string/menu_outlet" />
+
+        <item
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/nav_account"
+            android:icon="@drawable/ic_baseline_account_24"
+            android:title="@string/menu_account" />
+
+        <item
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/nav_log_in"
+            android:icon="@drawable/ic_baseline_login_24"
+            android:title="@string/menu_login" />
+
+
+
+
+
     </group>
 </menu>

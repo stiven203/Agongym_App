@@ -25,7 +25,7 @@ public class ProductsAdapter extends BaseAdapter implements Filterable {
 
     Cursor mCursor = null;
     private Context mContext;
-
+    TextView comparePriceTV;
     Cursor auxCursor;
 
     public ProductsAdapter(Context context, Cursor cursor){
@@ -64,8 +64,26 @@ public class ProductsAdapter extends BaseAdapter implements Filterable {
         String productPrice = mCursor.getString(mCursor.getColumnIndex(DataContract.ProductInternalClass.MAX_VARIANT_PRICE))+" €";
         String mainImage = mCursor.getString(mCursor.getColumnIndex(DataContract.ProductInternalClass.MAIN_IMAGE));
 
+        //Query Variant Compare At Price
+        String[] selectionArgs={mCursor.getString(mCursor.getColumnIndex(DataContract.ProductInternalClass.ID))};
+        String selection= DataContract.VariantInternalClass.PRODUCT_ID + " = ?";
+        Cursor auxCursor;
+        auxCursor = mContext.getContentResolver().query(DataContract.VariantInternalClass.buildVariantUri(),null,selection,selectionArgs,null);
+        auxCursor.moveToFirst();
+
+        String compareAtPrice = auxCursor.getString(auxCursor.getColumnIndex(DataContract.VariantInternalClass.COMPARE_AT_PRICE))+" €";
+
+        if(compareAtPrice.equals(" €")||compareAtPrice.equals("0.0 €")){
+            compareAtPrice = "";
+        }
+
+
         ((TextView)convertView.findViewById(R.id.product_title)).setText(productTitle);
         ((TextView)convertView.findViewById(R.id.product_price)).setText(productPrice);
+        comparePriceTV =(TextView)convertView.findViewById(R.id.product_compare_at_price);
+        comparePriceTV.setText(compareAtPrice);
+
+
 
         //Picasso.with(mContext).load(mCursor.getColumnIndex(DataContract.ProductInternalClass.MAIN_IMAGE)).into((ImageView)convertView.findViewById(R.id.imageview_product_image));
         ImageView imageView = (ImageView) convertView.findViewById(R.id.imageview_product_image);

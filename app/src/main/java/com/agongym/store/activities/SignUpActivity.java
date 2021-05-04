@@ -38,12 +38,19 @@ public class SignUpActivity extends AppCompatActivity {
     Button signup_btn;
     ContentValues customerContentValues;
 
+    String customerFirstName = "";
+    String customerLastName = "";
+    String customerEmail = "";
+    int i=0;
+
+
     int x=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        i=0;
 
         x=0;
 
@@ -244,14 +251,14 @@ public class SignUpActivity extends AppCompatActivity {
                     Log.e("Apollo", "Acess Token: " + response.getData().customerAccessTokenCreate.customerAccessToken.accessToken);
                     Log.e("Apollo", "Expires At: " + response.getData().customerAccessTokenCreate.customerAccessToken.expiresAt);
 
+                    String token=response.getData().customerAccessTokenCreate.customerAccessToken.accessToken;
+                    String expiresAt = response.getData().customerAccessTokenCreate.customerAccessToken.expiresAt.toString();
+
                     //Insercción BBDD Token de usuario
 
-                    customerContentValues = new ContentValues();
-                    CustomerModel customerModel = new CustomerModel(response.getData().customerAccessTokenCreate.customerAccessToken.accessToken,
-                            response.getData().customerAccessTokenCreate.customerAccessToken.expiresAt.toString());
 
-                    customerContentValues = DataContract.CustomerInternalClass.CustomerToContentValues(customerModel);
-                    Uri x =getContentResolver().insert(DataContract.CustomerInternalClass.buildCartUri(),customerContentValues);
+                    insertCustomerDataBase(token,expiresAt);
+
                     //
 
                     //COMPROBACION INSERCCIÓN (PROVISIONAL)
@@ -273,6 +280,46 @@ public class SignUpActivity extends AppCompatActivity {
         while(x==0){}
 
 
+
+    }
+
+    private void insertCustomerDataBase(String token, String expiresAt) {
+
+        //Apollo Client
+        Apollo apolloObject = new Apollo();
+        ApolloClient apolloClient = apolloObject.getApolloClient();
+        //
+
+        //Pedir al servidor nombre y apellidos del cliente
+        apolloClient.query(new CustomerQuery(token)).enqueue(new ApolloCall.Callback<CustomerQuery.Data>() {
+            @Override
+            public void onResponse(@NotNull Response<CustomerQuery.Data> response) {
+
+                customerFirstName = response.getData().customer.firstName;
+                customerLastName = response.getData().customer.lastName;
+                customerEmail = response.getData().customer.email;
+
+                //
+                i = 1;
+            }
+
+            @Override
+            public void onFailure(@NotNull ApolloException e) {
+
+                Log.e("Apollo Error", e.getMessage());
+
+            }
+        });
+
+        while (i == 0) {
+        }
+
+        //insercción BBDD
+        customerContentValues = new ContentValues();
+        CustomerModel customerModel = new CustomerModel(token,expiresAt,customerFirstName,customerLastName,customerEmail);
+
+        customerContentValues = DataContract.CustomerInternalClass.CustomerToContentValues(customerModel);
+        Uri x =getContentResolver().insert(DataContract.CustomerInternalClass.buildCartUri(),customerContentValues);
 
     }
 

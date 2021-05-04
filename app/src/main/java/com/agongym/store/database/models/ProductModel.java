@@ -12,7 +12,9 @@ public class ProductModel implements Serializable {
     private String maxVariantPrice;
     private String collection;
 
-    public ProductModel(String id, String title, String availableForSale, String description, String productType, String mainImage, String maxVariantPrice, String collection) {
+
+    public ProductModel(String id, String title, String availableForSale, String description, String productType, String mainImage, String maxVariantPrice,
+                        String collection) {
         this.id = id;
         this.title = title;
         this.availableForSale=availableForSale;
@@ -21,6 +23,7 @@ public class ProductModel implements Serializable {
         this.mainImage=mainImage;
         this.maxVariantPrice=maxVariantPrice;
         this.collection=collection;
+
     }
 
     public String getId() {
@@ -86,4 +89,6 @@ public class ProductModel implements Serializable {
     public void setCollection(String collection) {
         this.collection = collection;
     }
+
+
 }

@@ -7,6 +7,7 @@ import android.net.Uri;
 import com.agongym.store.database.models.CartModel;
 import com.agongym.store.database.models.CustomerModel;
 import com.agongym.store.database.models.ImageModel;
+import com.agongym.store.database.models.OrderModel;
 import com.agongym.store.database.models.ProductModel;
 import com.agongym.store.database.models.VariantModel;
 
@@ -26,6 +27,7 @@ public class DataContract {
         String MAIN_IMAGE = "MAIN_IMAGE";
         String MAX_VARIANT_PRICE = "MAX_VARIANT_PRICE";
         String COLLECTION = "COLLECTION";
+
 
     }
 
@@ -63,15 +65,20 @@ public class DataContract {
     {
         String ACCESS_TOKEN = "ACCESS_TOKEN";
         String ACCESS_TOKEN_EXPIRES_AT = "ACCESS_TOKEN_EXPIRES_AT";
-        String ADDRESS_1 = "ADDRESS_1";
-        String ADDRESS_2 = "ADDRESS_2";
-        String CITY = "CITY";
-        String COUNTRY = "COUNTRY";
         String FIRST_NAME = "FIRST_NAME";
         String LAST_NAME = "LAST_NAME";
-        String PHONE = "PHONE";
-        String ZIP = "ZIP";
-        String PROVINCE = "PROVINCE";
+        String EMAIL = "EMAIL";
+
+
+    }
+
+    interface OrderFields
+    {
+
+        String CUSTOMER_ACCESS_TOKEN = "CUSTOMER_ACCESS_TOKEN";
+        String NAME = "NAME";
+        String PRICE = "PRICE";
+        String PROCESSED_AT = "PROCESSED_AT";
 
     }
 
@@ -111,6 +118,7 @@ public class DataContract {
             contentValues.put(ProductInternalClass.MAIN_IMAGE, productModel.getMainImage());
             contentValues.put(ProductInternalClass.MAX_VARIANT_PRICE, productModel.getMaxVariantPrice());
             contentValues.put(ProductInternalClass.COLLECTION, productModel.getCollection());
+
             return  contentValues;
         }
 
@@ -232,16 +240,9 @@ public class DataContract {
                         CustomerInternalClass._ID,
                         CustomerInternalClass.ACCESS_TOKEN,
                         CustomerInternalClass.ACCESS_TOKEN_EXPIRES_AT,
-                        CustomerInternalClass.ADDRESS_1,
-                        CustomerInternalClass.ADDRESS_2,
-                        CustomerInternalClass.CITY,
-                        CustomerInternalClass.COUNTRY,
                         CustomerInternalClass.FIRST_NAME,
                         CustomerInternalClass.LAST_NAME,
-                        CustomerInternalClass.PHONE,
-                        CustomerInternalClass.ZIP,
-                        CustomerInternalClass.PROVINCE
-
+                        CustomerInternalClass.EMAIL
 
 
                 };
@@ -262,15 +263,48 @@ public class DataContract {
 
             contentValues.put(CustomerInternalClass.ACCESS_TOKEN, customerModel.getAccessToken());
             contentValues.put(CustomerInternalClass.ACCESS_TOKEN_EXPIRES_AT, customerModel.getAccessTokenExpiresAt());
-            contentValues.put(CustomerInternalClass.ADDRESS_1, customerModel.getAddress1());
-            contentValues.put(CustomerInternalClass.ADDRESS_2, customerModel.getAddress2());
-            contentValues.put(CustomerInternalClass.CITY, customerModel.getCountry());
-            contentValues.put(CustomerInternalClass.COUNTRY, customerModel.getCountry());
             contentValues.put(CustomerInternalClass.FIRST_NAME, customerModel.getFirstName());
             contentValues.put(CustomerInternalClass.LAST_NAME, customerModel.getLastName());
-            contentValues.put(CustomerInternalClass.PHONE, customerModel.getPhone());
-            contentValues.put(CustomerInternalClass.ZIP, customerModel.getZip());
-            contentValues.put(CustomerInternalClass.PROVINCE, customerModel.getProvince());
+            contentValues.put(CustomerInternalClass.EMAIL, customerModel.getEmail());
+
+
+            return  contentValues;
+        }
+
+    }
+
+    public static class OrderInternalClass implements OrderFields, BaseColumns
+    {
+        public static String ALL_FIELDS[] =
+                {
+                        OrderInternalClass._ID,
+                        OrderInternalClass.CUSTOMER_ACCESS_TOKEN,
+                        OrderInternalClass.NAME,
+                        OrderInternalClass.PRICE,
+                        OrderInternalClass.PROCESSED_AT,
+
+                };
+
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+                .appendPath(ProductContentProvider.ORDERS_TABLE).build();
+
+        /** for all Variants */
+
+        public static Uri buildCartUri() {
+            return CONTENT_URI;
+        }
+
+
+        public static ContentValues OrderToContentValues(OrderModel orderModel)
+        {
+            ContentValues contentValues = new ContentValues();
+
+            contentValues.put(OrderInternalClass.CUSTOMER_ACCESS_TOKEN, orderModel.getCustomerAccessToken());
+            contentValues.put(OrderInternalClass.NAME, orderModel.getName());
+            contentValues.put(OrderInternalClass.PRICE, orderModel.getPrice());
+            contentValues.put(OrderInternalClass.PROCESSED_AT, orderModel.getProcessedAt());
+
+
 
             return  contentValues;
         }

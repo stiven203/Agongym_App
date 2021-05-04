@@ -54,8 +54,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        getSupportActionBar().setTitle("ΛGONGYM");
 
-        Log.e("ID que llega", getIntent().getExtras().getString("productId"));
+
+
+        Log.d("ID que llega", getIntent().getExtras().getString("productId"));
         productId=getIntent().getExtras().getString("productId");
 
         String[] selectionArgs = {getIntent().getExtras().getString("productId")};

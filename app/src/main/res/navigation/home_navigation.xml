@@ -8,8 +8,7 @@
     <fragment
         android:id="@+id/nav_man"
         android:name="com.agongym.store.fragments.MenFragment"
-        android:label="@string/menu_men"
-        tools:layout="@layout/fragment_men" >
+        tools:layout="@layout/men_fragment" >
         <action
             android:id="@+id/action_nav_man_to_nav_main"
             app:destination="@id/nav_main" />
@@ -18,7 +17,7 @@
     <fragment
         android:id="@+id/nav_women"
         android:name="com.agongym.store.fragments.WomenFragment"
-        android:label="@string/menu_women"
+
         tools:layout="@layout/fragment_women" >
         <action
             android:id="@+id/action_nav_women_to_nav_main"
@@ -28,7 +27,6 @@
     <fragment
         android:id="@+id/nav_accessories"
         android:name="com.agongym.store.fragments.AccessoriesFragment"
-        android:label="fragment_accessories"
         tools:layout="@layout/fragment_accessories" >
         <action
             android:id="@+id/action_nav_accessories_to_nav_main"
@@ -37,7 +35,8 @@
     <fragment
         android:id="@+id/nav_main"
         android:name="com.agongym.store.fragments.MainFragment"
-        android:label="MainFragment" >
+        >
+
         <action
             android:id="@+id/action_nav_main_to_nav_women"
             app:destination="@id/nav_women" />
@@ -50,5 +49,36 @@
         <action
             android:id="@+id/action_nav_main_to_nav_man2"
             app:destination="@id/nav_man" />
+        <action
+            android:id="@+id/action_nav_main_to_nav_outlet"
+            app:destination="@id/nav_outlet" />
+        <action
+            android:id="@+id/action_nav_main_to_accountFragment"
+            app:destination="@id/nav_account" />
+        <action
+            android:id="@+id/action_nav_main_to_logInActivity"
+            app:destination="@id/nav_log_in" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_outlet"
+        android:name="com.agongym.store.fragments.OutletFragment"
+        android:label="OutletFragment" >
+        <action
+            android:id="@+id/action_nav_outlet_to_nav_main"
+            app:destination="@id/nav_main" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_account"
+        android:name="com.agongym.store.fragments.AccountFragment"
+        android:label="account_fragment"
+        tools:layout="@layout/account_fragment" >
+        <action
+            android:id="@+id/action_accountFragment_to_nav_main"
+            app:destination="@id/nav_main" />
+    </fragment>
+    <activity
+        android:id="@+id/nav_log_in"
+        android:name="com.agongym.store.activities.LogInActivity"
+        android:label="activity_log_in"
+        tools:layout="@layout/activity_log_in" />
 </navigation>

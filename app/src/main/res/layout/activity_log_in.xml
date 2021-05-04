@@ -33,7 +33,7 @@
 
                 <TextView
                     android:id="@+id/welcome_textView"
-
+                    android:fontFamily="@font/montserrat"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/welcome_message"
@@ -48,6 +48,7 @@
                 android:gravity="center_horizontal">
 
                 <EditText
+                    android:fontFamily="@font/montserrat"
                     android:id="@+id/editTextTextHomeEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -71,9 +72,11 @@
                     android:layout_height="wrap_content"
                     android:autofillHints="username"
                     android:background="@drawable/edit_text_corners"
+                    android:fontFamily="@font/montserrat"
                     android:hint="@string/password_hint"
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
+                    android:password="true"
                     tools:ignore="LabelFor" />
 
             </TableRow>
@@ -96,12 +99,14 @@
 
 
                     <Button
+                        android:fontFamily="@font/montserrat"
                         android:id="@+id/login_button"
                         android:layout_width="100dp"
                         android:layout_height="50dp"
                         android:text="@string/login_button" />
 
                     <Button
+                        android:fontFamily="@font/montserrat"
                         android:id="@+id/signuphome_button"
                         android:layout_width="100dp"
                         android:layout_height="50dp"
@@ -119,6 +124,7 @@
 
         <TextView
 
+            android:fontFamily="@font/montserrat"
             android:layout_marginTop="150dp"
             android:layout_marginRight="30dp"
             android:id="@+id/skip_text_view"

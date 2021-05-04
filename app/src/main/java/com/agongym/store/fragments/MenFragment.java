@@ -3,18 +3,17 @@ package com.agongym.store.fragments;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.SearchView;
 //import androidx.appcompat.widget.SearchView;
 
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.agongym.store.activities.ProductDetailsActivity;
@@ -37,7 +36,10 @@ public class MenFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //manViewModel = new ViewModelProvider(this).get(ManViewModel.class);
 
-        View root = inflater.inflate(R.layout.fragment_men, container, false);
+        View root = inflater.inflate(R.layout.men_fragment, container, false);
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("ΛGONGYM");
+
 
 
         return root;

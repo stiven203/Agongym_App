@@ -18,10 +18,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.agongym.store.Apollo;
 import com.agongym.store.activities.type.CustomerAccessTokenCreateInput;
 import com.agongym.store.database.DataContract;
-import com.agongym.store.database.models.CartModel;
 import com.agongym.store.database.models.CustomerModel;
+import com.agongym.store.database.models.OrderModel;
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.ApolloClient;
 import com.apollographql.apollo.api.Response;
@@ -37,9 +38,13 @@ public class LogInActivity extends AppCompatActivity {
 
     Button login_btn, signup_btn;
     TextView textView;
-
+    int i=0;
     EditText email, pass;
     Intent intent;
+
+    String firstName = "";
+    String lastName = "";
+    String customerEmail = "";
 
     ContentValues customerContentValues;
 
@@ -48,10 +53,14 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        i=0;
 
-        //Poner Custom action bar
+        //Poner Custom toolbar
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.toolbar_title);
+        getSupportActionBar().setCustomView(R.layout.toolbar_content);
+        //
+
+
         setContentView(R.layout.activity_log_in);
 
         email= (EditText) findViewById(R.id.editTextTextHomeEmail);
@@ -158,26 +167,9 @@ public class LogInActivity extends AppCompatActivity {
         final String[] queryResponse = {null};
 
 
-        //OkHttpClient
-        String token = "be05b0140c6b668dd468583ae1ca448d";
-        OkHttpClient httpClient = new OkHttpClient.Builder()
-                .addInterceptor(chain -> {
-                    okhttp3.Request original = chain.request();
-                    okhttp3.Request.Builder builder = original.newBuilder().method(original.method(), original.body());
-                    builder.header("Accept", "application/json");
-                    builder.header("X-Shopify-Storefront-Access-Token", token);
-                    return chain.proceed(builder.build());
-                })
-                .build();
-
-
-        // Create an `ApolloClient`
-        // Replace the serverUrl with your GraphQL endpoint
-        ApolloClient apolloClient = ApolloClient.builder()
-                .serverUrl("https://agon-gym.myshopify.com/api/graphql")
-                .okHttpClient(httpClient)
-                .build();
-
+        //Apollo
+        Apollo apolloObject =  new Apollo();
+        ApolloClient apolloClient  = apolloObject.getApolloClient();
 
         // ejecuto la mutation
 
@@ -205,14 +197,11 @@ public class LogInActivity extends AppCompatActivity {
                     Log.e("Apollo", "Acess Token: " + response.getData().customerAccessTokenCreate.customerAccessToken.accessToken);
                     Log.e("Apollo", "Expires At: " + response.getData().customerAccessTokenCreate.customerAccessToken.expiresAt);
 
+                    String token=response.getData().customerAccessTokenCreate.customerAccessToken.accessToken;
+                    String expiresAt = response.getData().customerAccessTokenCreate.customerAccessToken.expiresAt.toString();
+
                     //Insercción BBDD Token de usuario
-
-                    customerContentValues = new ContentValues();
-                    CustomerModel customerModel = new CustomerModel(response.getData().customerAccessTokenCreate.customerAccessToken.accessToken,
-                            response.getData().customerAccessTokenCreate.customerAccessToken.expiresAt.toString());
-
-                    customerContentValues = DataContract.CustomerInternalClass.CustomerToContentValues(customerModel);
-                    Uri x =getContentResolver().insert(DataContract.CustomerInternalClass.buildCartUri(),customerContentValues);
+                    insertCustomerDataBase(token,expiresAt);
                     //
 
                     //COMPROBACION INSERCCIÓN (PROVISIONAL)
@@ -231,6 +220,94 @@ public class LogInActivity extends AppCompatActivity {
                 Log.e("Apollo", "Error: " + e.getMessage());
             }
         });
+
+
+    }
+
+    private void insertCustomerDataBase(String token, String expiresAt) {
+
+        final CustomerQuery.Orders[] orders = {null};
+
+        final boolean[] userOrders = {false};
+
+        //Apollo Client
+        final Apollo[] apolloObject = {new Apollo()};
+        ApolloClient apolloClient = apolloObject[0].getApolloClient();
+        //
+
+        //Pedir al servidor nombre y apellidos del cliente
+        apolloClient.query(new CustomerQuery(token)).enqueue(new ApolloCall.Callback<CustomerQuery.Data>() {
+            @Override
+            public void onResponse(@NotNull Response<CustomerQuery.Data> response) {
+
+                firstName = response.getData().customer.firstName;
+                lastName = response.getData().customer.lastName;
+                customerEmail = response.getData().customer.email;
+
+                if(response.getData().customer.orders.edges.size()!=0){
+
+                    orders[0] = response.getData().customer.orders;
+                    userOrders[0] = true;
+
+                }
+                else {
+                    Log.e("ORDER INFO","Este usuario no tiene pedidos");
+                }
+
+
+                //
+                i = 1;
+            }
+
+            @Override
+            public void onFailure(@NotNull ApolloException e) {
+
+                Log.e("Apollo Error", e.getMessage());
+
+            }
+        });
+
+        while (i == 0) {
+        }
+
+
+        //insercción BBDD Customer
+        customerContentValues = new ContentValues();
+        CustomerModel customerModel = new CustomerModel(token,expiresAt,firstName,lastName,customerEmail);
+
+        customerContentValues = DataContract.CustomerInternalClass.CustomerToContentValues(customerModel);
+        Uri x =getContentResolver().insert(DataContract.CustomerInternalClass.buildCartUri(),customerContentValues);
+
+        //
+
+        //insercción BBDD Orders
+
+        String auxDate = "";
+        String date = "";
+
+        if(userOrders[0]!=false){
+            ContentValues orderContentValues[] = new ContentValues[orders[0].edges.size()];
+
+            for(int i = 0; i< orders[0].edges.size(); i++){
+
+                date = orders[0].edges.get(i).node.processedAt.toString();
+                auxDate = date.substring(0,4)+"-"+date.substring(5,7)+"-"+date.substring(8,10);
+
+                OrderModel orderModel = new OrderModel(token, orders[0].edges.get(i).node.name,
+                        orders[0].edges.get(i).node.totalPriceV2.amount.toString(),auxDate);
+
+                orderContentValues[i] = DataContract.OrderInternalClass.OrderToContentValues(orderModel);
+            }
+
+            Integer p =getContentResolver().bulkInsert(DataContract.OrderInternalClass.buildCartUri(), orderContentValues);
+            Log.d("Numero de Insercciones de ORDERS", Integer.toString(p) );
+
+
+
+        }
+        else {
+            Log.e("ORDER INFO","Este usuario no tiene pedidos");
+        }
 
 
     }

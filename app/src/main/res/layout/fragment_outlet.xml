@@ -5,17 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.agongym.store.fragments.CollectionFragment">
+
+    tools:context="com.agongym.store.fragments.MenFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:id="@+id/collection_text_title"
+        android:fontFamily="@font/montserrat"
+        android:id="@+id/outlet_text_title"
         android:paddingLeft="16dp"
         android:layout_width="170dp"
         android:layout_height="35dp"
         android:layout_span="1"
-        android:text="TITLE"
+        android:text="OUTLET"
         android:textColor="#525257"
         android:textSize="20sp"
         android:layout_marginTop="15dp"
@@ -24,8 +26,10 @@
 
     </TextView>
 
+
+
     <GridView
-        android:id="@+id/productsgridview"
+        android:id="@+id/outletgridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"

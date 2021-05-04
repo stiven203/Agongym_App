@@ -19,6 +19,7 @@
     <string name="marketing_checkbox">Suscribirse a nuestra newsletter</string>
     <string name="productTextView_title">Name</string>
     <string name="productTextView_price">PRICE</string>
+    <string name="productTextView_compareAtPrice">COMPARE AT PRICE</string>
     <string name="minus_button">-</string>
     <string name="plus_button">+</string>
     <string name="addtocart_button">AÑADIR A LA CESTA</string>
@@ -30,13 +31,16 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_subtitle">¡Bienvenid@ a ΛGONGYM!</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_cart">Cart</string>
 
     <string name="menu_men">MEN</string>
     <string name="menu_women">WOMEN</string>
     <string name="menu_accesories">ACCESORIES</string>
+    <string name="menu_outlet">OUTLET</string>
+    <string name="menu_account">CUENTA</string>
+    <string name="menu_login">LOG IN</string>
 
     <string name="place_order">TERMINAR PEDIDO</string>
     <string name="cart_img_description">Image of the product add cart</string>

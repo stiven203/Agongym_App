@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import android.content.ContentValues;
+
+import com.agongym.store.Apollo;
 import com.agongym.store.database.DataContract;
 import com.agongym.store.database.models.ImageModel;
 import com.agongym.store.database.models.ProductModel;
@@ -125,25 +127,11 @@ public class SplashActivity extends AppCompatActivity {
 
     private void downloadProducts() {
 
-        //OkHttpClient
-        String token = "be05b0140c6b668dd468583ae1ca448d";
-        OkHttpClient httpClient = new OkHttpClient.Builder()
-                .addInterceptor(chain -> {
-                    okhttp3.Request original = chain.request();
-                    okhttp3.Request.Builder builder = original.newBuilder().method(original.method(), original.body());
-                    builder.header("Accept", "application/json");
-                    builder.header("X-Shopify-Storefront-Access-Token", token);
-                    return chain.proceed(builder.build());
-                })
-                .build();
+        //APOLLO
+        Apollo apolloObject = new Apollo();
+        ApolloClient apolloClient = apolloObject.getApolloClient();
+        //
 
-
-        // Create an `ApolloClient`
-        // Replace the serverUrl with your GraphQL endpoint
-        ApolloClient apolloClient = ApolloClient.builder()
-                .serverUrl("https://agon-gym.myshopify.com/api/graphql")
-                .okHttpClient(httpClient)
-                .build();
 
         // Then enqueue your query
 
@@ -160,6 +148,9 @@ public class SplashActivity extends AppCompatActivity {
                         for(int i=0;i<response.getData().products().edges().size();i++){
                             Log.e("PRODUCTO",""+response.getData().products().edges().get(i).node().title()+" : DISPONIBLE: "
                                     + String.valueOf(products.edges.get(i).node.availableForSale));
+                            if(response.getData().products.edges.get(i).node.collections.edges.size()!=0){
+                                Log.e("COLECCIÓN",response.getData().products.edges.get(i).node.collections.edges.get(0).node.title);
+                            }
                             if(response.getData().products.edges.get(i).node.variants.edges().size()==0){
                                 //Log.e("MENSAJE: ","Este producto no tiene variantes");
                             }
@@ -184,7 +175,7 @@ public class SplashActivity extends AppCompatActivity {
 
                         String order =null;
                         cursor = getContentResolver().query(DataContract.ProductInternalClass.buildProductUri(), DataContract.ProductInternalClass.ALL_FIELDS,null,null, null);
-                        Log.d("PRODUCTOS EN BBDD", Integer.toString(cursor.getCount()));
+                        Log.e("PRODUCTOS EN BBDD", Integer.toString(cursor.getCount()));
 
 
                         //Comprobación BBDD
@@ -197,8 +188,16 @@ public class SplashActivity extends AppCompatActivity {
 
                         }
                         else{
-                            Log.e("MESESAGE", "YA EXISTE BBDD --> ACTUALIZAR");
-                            updateDataBase(products);
+
+                            if(cursor.getCount()<products.edges.size()){
+                                getContentResolver().delete(DataContract.ProductInternalClass.buildProductUri(),null,null);
+                                insertDataBase(products);
+                            }
+                            else{
+                                Log.e("MESESAGE", "YA EXISTE BBDD --> ACTUALIZAR");
+                                updateDataBase(products);
+                            }
+
                         }
                     }
 
@@ -248,12 +247,14 @@ public class SplashActivity extends AppCompatActivity {
                     }
 
                 }
+                Log.e("Colección producto",products.edges.get(i).node.title+": "+collection );
 
 
 
                 ProductModel productModel = new ProductModel(products.edges.get(i).node.id,products.edges.get(i).node.title,String.valueOf(products.edges.get(i).node.availableForSale()),
                         products.edges.get(i).node.description,products.edges.get(i).node.productType,products.edges.get(i).node.images().edges.get(0).node.originalSrc.toString(),
-                        products.edges.get(i).node.presentmentPriceRanges.edges.get(0).node.maxVariantPrice.amount.toString(), collection);
+                        products.edges.get(i).node.presentmentPriceRanges.edges.get(0).node.maxVariantPrice.amount.toString(),
+                        collection);
 
 
                 selectionArgs = new String[]{products.edges.get(i).node.id};

@@ -33,6 +33,7 @@
             >
 
             <TextView
+                android:fontFamily="@font/montserrat"
                 android:layout_width="120dp"
                 android:layout_height="50dp"
                 android:text="SUBTOTAL"
@@ -45,6 +46,7 @@
             </TextView>
 
             <TextView
+                android:fontFamily="@font/montserrat"
                 android:id="@+id/subtotal_text_view"
                 android:layout_width="120dp"
                 android:layout_height="50dp"
@@ -59,6 +61,7 @@
         </LinearLayout>
 
         <Button
+            android:fontFamily="@font/montserrat"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
             android:id="@+id/buttonPlaceOrder"

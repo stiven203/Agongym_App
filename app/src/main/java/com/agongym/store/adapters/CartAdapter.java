@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.agongym.store.activities.CartActivity;
 import com.agongym.store.database.DataContract;
 import com.example.agongym.R;
 import com.squareup.picasso.Picasso;
@@ -46,6 +47,9 @@ public class CartAdapter extends BaseAdapter{
 
     public void updateView(Cursor cursor) {
         mCursor=cursor;
+        if(cursor.getCount()==0){
+            ((CartActivity)mContext).finish();
+        }
         this.notifyDataSetChanged();
     }
 

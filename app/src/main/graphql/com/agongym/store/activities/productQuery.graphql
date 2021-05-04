@@ -1,4 +1,5 @@
 query product{
+
     products(first: 100){
         edges{
             node{
@@ -7,6 +8,7 @@ query product{
                 availableForSale
                 description
                 productType
+
 
                 collections(first: 1) {
                     edges {
@@ -19,8 +21,8 @@ query product{
                 images(first: 4) {
                     edges {
                         node {
-                                id
-                                originalSrc
+                            id
+                            originalSrc
                         }
                     }
                 }

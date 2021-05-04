@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.agongym.store.database.DataContract;
@@ -33,6 +34,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     ImageView cart_icon;
     int nProducts=0;
 
+    TextView customerNameTextView;
+    String customerName = "";
+
     SearchView mSearchView;
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -41,20 +45,62 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
+
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_man, R.id.nav_women, R.id.nav_accessories, R.id.nav_main)
+                R.id.nav_man, R.id.nav_women, R.id.nav_accessories, R.id.nav_main, R.id.nav_outlet, R.id.nav_account)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        updateCustomerNameInfo();
+    }
+
+    private void updateCustomerNameInfo() {
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        customerNameTextView = (TextView) headerView.findViewById(R.id.customerNameTV);
+
+
+
+        Cursor cursor = getContentResolver().query(DataContract.CustomerInternalClass.buildCartUri(),DataContract.CustomerInternalClass.ALL_FIELDS,null,null, null);
+        Log.e("El numero usuarios en BBDD son",""+cursor.getCount());
+
+        if(cursor.getCount()>0){
+            cursor.moveToFirst();
+            customerName = cursor.getString(cursor.getColumnIndex(DataContract.CustomerInternalClass.FIRST_NAME));
+
+            Log.e("Customer Name",customerName);
+
+
+        }
+
+
+        if(customerNameTextView!=null)
+        {
+            customerNameTextView.setText(customerName);
+        }
+
+
+
+
+
+
+
     }
 
     @Override

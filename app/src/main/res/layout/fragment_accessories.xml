@@ -10,6 +10,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
+        android:fontFamily="@font/montserrat"
         android:id="@+id/accessories_text_title"
         android:paddingLeft="16dp"
         android:layout_width="170dp"

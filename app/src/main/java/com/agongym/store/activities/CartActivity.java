@@ -7,13 +7,11 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.agongym.store.Apollo;
 import com.agongym.store.activities.type.CheckoutCreateInput;
@@ -133,7 +131,7 @@ public class CartActivity extends AppCompatActivity {
 
                 if(userLogged){
 
-                    checkShippingInfo();
+                    queryShippingInfo();
 
                     if(userShippingInfo){
 
@@ -199,42 +197,40 @@ public class CartActivity extends AppCompatActivity {
 
         Log.e("SIZE OF CURSOR",""+auxCursor.getCount());
 
-        String [] variantPrices = new String[auxCursor.getCount()];
-        String [] variantQuantity = new String[auxCursor.getCount()];
+        if(auxCursor.getCount()!=0)
+        {
+            String [] variantPrices = new String[auxCursor.getCount()];
+            String [] variantQuantity = new String[auxCursor.getCount()];
 
-        int w=0;
+            int w=0;
 
-        int columnIndex1 = auxCursor.getColumnIndexOrThrow(DataContract.CartInternalClass.VARIANT_PRICE);
-        int columnIndex2 = auxCursor.getColumnIndexOrThrow(DataContract.CartInternalClass.QUANTITY);
+            int columnIndex1 = auxCursor.getColumnIndexOrThrow(DataContract.CartInternalClass.VARIANT_PRICE);
+            int columnIndex2 = auxCursor.getColumnIndexOrThrow(DataContract.CartInternalClass.QUANTITY);
 
-        auxCursor.moveToFirst();
+            auxCursor.moveToFirst();
 
-        do{
+            do{
 
-            variantPrices[w] = auxCursor.getString(columnIndex1);
-            variantQuantity[w] = auxCursor.getString(columnIndex2);
-            Log.e("PRECIO DE VARIANTE","POS "+ w+ " "+auxCursor.getString(columnIndex1));
-            w++;
+                variantPrices[w] = auxCursor.getString(columnIndex1);
+                variantQuantity[w] = auxCursor.getString(columnIndex2);
+                Log.e("PRECIO DE VARIANTE","POS "+ w+ " "+auxCursor.getString(columnIndex1));
+                w++;
 
 
-        }while (auxCursor.moveToNext());
+            }while (auxCursor.moveToNext());
 
-        double subtotal=0.0;
+            double subtotal=0.0;
 
-        for(int i=0;i<variantPrices.length;i++){
-            subtotal =  subtotal + (Double.parseDouble(variantPrices[i])*Double.parseDouble(variantQuantity[i]));
+            for(int i=0;i<variantPrices.length;i++){
+                subtotal =  subtotal + (Double.parseDouble(variantPrices[i])*Double.parseDouble(variantQuantity[i]));
+            }
+
+            DecimalFormat numberFormat = new DecimalFormat("#.00");
+
+            subPrice = numberFormat.format(subtotal).toString();
+
+            Log.e("SUBTOTAL AHORA ES",""+subtotal);
         }
-
-        DecimalFormat numberFormat = new DecimalFormat("#.00");
-
-        subPrice = numberFormat.format(subtotal).toString();
-
-        Log.e("SUBTOTAL AHORA ES",""+subtotal);
-
-
-
-
-
 
 
 
@@ -267,8 +263,6 @@ public class CartActivity extends AppCompatActivity {
         startActivity(intent);
 
         //aqui borar productos del carrito y cerrar activity
-
-
 
     }
 
@@ -403,13 +397,9 @@ public class CartActivity extends AppCompatActivity {
 
             Log.e("VALOR DE CHECKOUTID ANTES DE BUCLE",checkoutId);
 
-            while(checkoutId.equals("")){
+            while(checkoutId.equals("")){ }
 
-                //Log.e("ENTRA EN BUCLE","BUCLEWWWW");
 
-            }
-
-            //Log.e("SALE DEL BUCLE","BUCLEWWWW");
 
 
 
@@ -597,9 +587,10 @@ public class CartActivity extends AppCompatActivity {
     }
 
 
-    private void checkShippingInfo() {
+    private void queryShippingInfo() {
 
         //aqui debo comprobar si el usuario está loggeado o no y mostrar un fragment u otro
+
         //Cliente Apollo
         Apollo apolloObject = new Apollo();
         ApolloClient apolloClient = apolloObject.getApolloClient();

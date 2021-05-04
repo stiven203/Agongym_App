@@ -2,6 +2,23 @@ query customer($input: String!) {
 
     customer (customerAccessToken: $input) {
         firstName
+        lastName
+        email
+
+        orders(first: 10)
+        {
+
+            edges
+            {
+                node
+                {
+                    name
+                    totalPriceV2{amount}
+                    processedAt
+                }
+            }
+        }
+
         defaultAddress{
             id
             firstName

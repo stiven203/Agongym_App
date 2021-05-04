@@ -1,0 +1,153 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.agongym.store.fragments.AccountFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/montserrat"
+            android:text="DETALLES DE LA CUENTA"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold">
+
+        </TextView>
+
+
+
+        <TextView
+            android:id="@+id/account_name"
+            android:fontFamily="@font/montserrat"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stiven VR"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            >
+
+        </TextView>
+
+        <TextView
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/account_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="35dp"
+            android:text="stiven203@gmail.com"
+            android:textColor="@color/dark_grey"
+            android:textSize="15dp">
+
+        </TextView>
+
+        <TextView
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/account_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="25dp"
+            android:text="DIRECCIÓN PRINCIPAL"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="15dp">
+
+        </TextView>
+
+        <TextView
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/account_address_adress12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="35dp"
+            android:text="Sin datos"
+            android:textColor="@color/dark_grey"
+            android:textSize="15dp">
+
+        </TextView>
+
+        <TextView
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/account_address_cityzip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="35dp"
+            android:text="Sin datos"
+            android:textColor="@color/dark_grey"
+            android:textSize="15dp">
+
+        </TextView>
+
+        <TextView
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/account_address_country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="35dp"
+            android:text="Sin datos"
+            android:textColor="@color/dark_grey"
+            android:textSize="15dp">
+
+        </TextView>
+
+        <TextView
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/account_address_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="35dp"
+            android:text="Sin datos"
+            android:textColor="@color/dark_grey"
+            android:textSize="15dp">
+
+        </TextView>
+
+        <TextView
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/account_orders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="25dp"
+            android:text="HISTORIAL DE PEDIDOS"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="15dp">
+
+        </TextView>
+
+
+    </LinearLayout>
+
+    <ListView
+        android:fontFamily="@font/montserrat"
+        android:id="@+id/orders_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="301dp"
+        android:layout_marginLeft="25dp"
+
+        >
+
+
+    </ListView>
+
+
+</FrameLayout>

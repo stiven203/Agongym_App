@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -35,6 +36,8 @@ public class WomenFragment extends Fragment {
         //manViewModel = new ViewModelProvider(this).get(ManViewModel.class);
 
         View root = inflater.inflate(R.layout.fragment_women, container, false);
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("ΛGONGYM");
 
         /*
         final TextView textView = root.findViewById(R.id.text_man);
