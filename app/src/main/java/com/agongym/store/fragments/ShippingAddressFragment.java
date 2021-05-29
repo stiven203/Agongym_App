@@ -17,7 +17,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.agongym.store.Apollo;
+import com.agongym.store.utils.Apollo;
 import com.agongym.store.activities.CheckoutCreateMutation;
 import com.agongym.store.activities.CustomerAddressCreateMutation;
 import com.agongym.store.activities.CustomerAddressUpdateMutation;

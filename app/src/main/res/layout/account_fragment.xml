@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/account_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
@@ -20,7 +21,8 @@
             android:text="DETALLES DE LA CUENTA"
             android:textColor="@color/black"
             android:textSize="20dp"
-            android:textStyle="bold">
+            android:textStyle="bold"
+            android:visibility="visible">
 
         </TextView>
 
@@ -33,7 +35,7 @@
             android:layout_marginLeft="35dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stiven VR"
+
             android:textSize="15dp"
             android:textColor="@color/black"
             >
@@ -47,23 +49,25 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="35dp"
-            android:text="stiven203@gmail.com"
+
             android:textColor="@color/dark_grey"
             android:textSize="15dp">
 
         </TextView>
 
         <TextView
-            android:fontFamily="@font/montserrat"
+
             android:id="@+id/account_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/montserrat"
             android:text="DIRECCIÓN PRINCIPAL"
             android:textColor="@color/black"
+            android:textSize="15dp"
             android:textStyle="bold"
-            android:textSize="15dp">
+            android:visibility="visible">
 
         </TextView>
 
@@ -74,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:layout_marginLeft="35dp"
-            android:text="Sin datos"
+
             android:textColor="@color/dark_grey"
             android:textSize="15dp">
 
@@ -87,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="35dp"
-            android:text="Sin datos"
+
             android:textColor="@color/dark_grey"
             android:textSize="15dp">
 
@@ -100,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="35dp"
-            android:text="Sin datos"
+
             android:textColor="@color/dark_grey"
             android:textSize="15dp">
 
@@ -113,23 +117,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="35dp"
-            android:text="Sin datos"
             android:textColor="@color/dark_grey"
             android:textSize="15dp">
 
         </TextView>
 
         <TextView
-            android:fontFamily="@font/montserrat"
             android:id="@+id/account_orders"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/montserrat"
             android:text="HISTORIAL DE PEDIDOS"
             android:textColor="@color/black"
+            android:textSize="15dp"
             android:textStyle="bold"
-            android:textSize="15dp">
+            android:visibility="visible">
 
         </TextView>
 

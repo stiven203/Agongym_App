@@ -10,9 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.agongym.store.Apollo;
+import com.agongym.store.utils.Apollo;
 import com.agongym.store.activities.CheckoutShippingLineUpdateMutation;
 import com.agongym.store.activities.CheckoutShippingRateQuery;
 import com.apollographql.apollo.ApolloCall;

@@ -13,19 +13,19 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
 
 
-        >
+        tools:ignore="MissingConstraints">
 
         <TableLayout
             android:id="@+id/layout_log_in"
             android:layout_width="350dp"
             android:layout_height="300dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="30dp">
 
             <TableRow
 
@@ -33,9 +33,9 @@
 
                 <TextView
                     android:id="@+id/welcome_textView"
-                    android:fontFamily="@font/montserrat"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/montserrat"
                     android:text="@string/welcome_message"
                     android:textColor="#000000"
                     android:textSize="25sp" />
@@ -48,12 +48,12 @@
                 android:gravity="center_horizontal">
 
                 <EditText
-                    android:fontFamily="@font/montserrat"
                     android:id="@+id/editTextTextHomeEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autofillHints="username"
                     android:background="@drawable/edit_text_corners"
+                    android:fontFamily="@font/montserrat"
                     android:hint="@string/mail_hint"
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
@@ -99,19 +99,19 @@
 
 
                     <Button
-                        android:fontFamily="@font/montserrat"
                         android:id="@+id/login_button"
                         android:layout_width="100dp"
                         android:layout_height="50dp"
+                        android:fontFamily="@font/montserrat"
                         android:text="@string/login_button" />
 
                     <Button
-                        android:fontFamily="@font/montserrat"
                         android:id="@+id/signuphome_button"
                         android:layout_width="100dp"
                         android:layout_height="50dp"
-
                         android:layout_marginLeft="20dp"
+
+                        android:fontFamily="@font/montserrat"
                         android:text="@string/signuphome_button" />
                 </LinearLayout>
 
@@ -119,27 +119,45 @@
             </TableRow>
 
 
-
         </TableLayout>
-
-        <TextView
-
-            android:fontFamily="@font/montserrat"
-            android:layout_marginTop="150dp"
-            android:layout_marginRight="30dp"
-            android:id="@+id/skip_text_view"
-            android:layout_gravity="right"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SKIP ➔" />
-
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/splash_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/montserrat"
+        android:text="BE YOUR BEST "
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.489" />
 
+    <TextView
+
+        android:id="@+id/skip_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="32dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="right"
+        android:text="SKIP ➔"
+        android:textColor="@color/dark_grey"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/splash_text"
+        app:layout_constraintVertical_bias="0.723" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

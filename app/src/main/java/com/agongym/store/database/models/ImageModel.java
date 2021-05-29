@@ -1,6 +1,7 @@
 package com.agongym.store.database.models;
 
 public class ImageModel {
+
     private String id;
     private String productId;
     private String originalSrc;

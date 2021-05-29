@@ -6,14 +6,20 @@
 
 
     <item
-
         android:title="Buscar"
         android:id="@+id/search_product"
         android:icon="@drawable/ic_search_24"
         app:showAsAction="ifRoom|collapseActionView"
-        app:actionViewClass="androidx.appcompat.widget.SearchView">
+        app:actionViewClass="android.widget.SearchView" />
 
-    </item>
+
+
+    <item
+        android:id="@+id/whatsapp_menu"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_whatsapp"
+        android:title="@string/action_whatsapp"
+        />
 
     <item
         android:id="@+id/cart_menu"
@@ -23,6 +29,9 @@
         android:title="@string/action_cart"
 
         />
+
+
+
 
 
 </menu>

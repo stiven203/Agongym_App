@@ -290,7 +290,7 @@ public class DataContract {
 
         /** for all Variants */
 
-        public static Uri buildCartUri() {
+        public static Uri buildOrderUri() {
             return CONTENT_URI;
         }
 

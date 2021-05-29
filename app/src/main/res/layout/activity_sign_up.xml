@@ -6,21 +6,24 @@
     android:layout_height="match_parent"
     tools:context="com.agongym.store.activities.SignUpActivity">
 
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/montserrat"
         android:text="@string/create_user"
         android:textColor="#000000"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <EditText
         android:id="@+id/editTextTextName"
+        android:fontFamily="@font/montserrat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -38,6 +41,7 @@
 
     <EditText
         android:id="@+id/editTextTextLastName"
+        android:fontFamily="@font/montserrat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -55,6 +59,7 @@
 
     <EditText
         android:id="@+id/editTextTextEmail"
+        android:fontFamily="@font/montserrat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -72,6 +77,7 @@
 
     <EditText
         android:id="@+id/editTextTextPassword"
+        android:fontFamily="@font/montserrat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -88,6 +94,7 @@
         tools:ignore="LabelFor" />
 
     <CheckBox
+        android:fontFamily="@font/montserrat"
         android:id="@+id/marketing_checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -102,6 +109,7 @@
 
     <Button
         android:id="@+id/signup_button"
+        android:fontFamily="@font/montserrat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"

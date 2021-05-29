@@ -37,6 +37,12 @@
             android:icon="@drawable/ic_baseline_login_24"
             android:title="@string/menu_login" />
 
+        <item
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/nav_log_out"
+            android:icon="@drawable/ic_baseline_login_24"
+            android:title="@string/menu_logout" />
+
 
 
 

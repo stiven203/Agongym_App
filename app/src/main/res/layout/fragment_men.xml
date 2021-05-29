@@ -13,7 +13,7 @@
 
 
     <LinearLayout
-        android:id="@+id/accessories_layout"
+        android:id="@+id/men_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
@@ -22,13 +22,13 @@
         tools:layout_editor_absoluteX="0dp">
 
         <TextView
-            android:id="@+id/accessories_text_title"
+            android:id="@+id/men_text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/montserrat"
-            android:text="ACCESSORIES"
+            android:text="MEN"
             android:textColor="#525257"
             android:textSize="15sp">
 
@@ -38,7 +38,7 @@
     </LinearLayout>
 
     <GridView
-        android:id="@+id/accessoriesgridview"
+        android:id="@+id/mengridview"
         android:layout_width="380dp"
         android:layout_height="match_parent"
         android:layout_marginTop="50dp"
@@ -48,6 +48,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accessories_layout"
+        app:layout_constraintTop_toBottomOf="@+id/men_layout"
         app:layout_constraintVertical_bias="0.776" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.agongym.store;
+package com.agongym.store.utils;
 
 import com.apollographql.apollo.ApolloClient;
 

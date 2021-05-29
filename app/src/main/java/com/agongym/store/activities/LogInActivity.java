@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.agongym.store.Apollo;
+import com.agongym.store.utils.Apollo;
 import com.agongym.store.activities.type.CustomerAccessTokenCreateInput;
 import com.agongym.store.database.DataContract;
 import com.agongym.store.database.models.CustomerModel;
@@ -30,8 +30,6 @@ import com.apollographql.apollo.exception.ApolloException;
 import com.example.agongym.R;
 
 import org.jetbrains.annotations.NotNull;
-
-import okhttp3.OkHttpClient;
 
 
 public class LogInActivity extends AppCompatActivity {
@@ -240,10 +238,12 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Response<CustomerQuery.Data> response) {
 
+
                 firstName = response.getData().customer.firstName;
                 lastName = response.getData().customer.lastName;
                 customerEmail = response.getData().customer.email;
 
+                /*
                 if(response.getData().customer.orders.edges.size()!=0){
 
                     orders[0] = response.getData().customer.orders;
@@ -253,6 +253,10 @@ public class LogInActivity extends AppCompatActivity {
                 else {
                     Log.e("ORDER INFO","Este usuario no tiene pedidos");
                 }
+
+                 */
+
+
 
 
                 //
@@ -282,6 +286,10 @@ public class LogInActivity extends AppCompatActivity {
 
         //insercción BBDD Orders
 
+        /*
+
+
+
         String auxDate = "";
         String date = "";
 
@@ -308,6 +316,12 @@ public class LogInActivity extends AppCompatActivity {
         else {
             Log.e("ORDER INFO","Este usuario no tiene pedidos");
         }
+
+         */
+
+        //
+
+
 
 
     }

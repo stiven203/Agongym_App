@@ -34,6 +34,7 @@
     <string name="nav_header_subtitle">¡Bienvenid@ a ΛGONGYM!</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_cart">Cart</string>
+    <string name="action_whatsapp">WhatsApp</string>
 
     <string name="menu_men">MEN</string>
     <string name="menu_women">WOMEN</string>
@@ -41,6 +42,7 @@
     <string name="menu_outlet">OUTLET</string>
     <string name="menu_account">CUENTA</string>
     <string name="menu_login">LOG IN</string>
+    <string name="menu_logout">LOG OUT</string>
 
     <string name="place_order">TERMINAR PEDIDO</string>
     <string name="cart_img_description">Image of the product add cart</string>

@@ -2,7 +2,9 @@ package com.agongym.store.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,8 +13,12 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import android.content.ContentValues;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.agongym.store.Apollo;
+import com.agongym.store.utils.Apollo;
 import com.agongym.store.database.DataContract;
 import com.agongym.store.database.models.ImageModel;
 import com.agongym.store.database.models.ProductModel;
@@ -28,8 +34,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import okhttp3.OkHttpClient;
-
 public class SplashActivity extends AppCompatActivity {
 
     private final int SPLASH_LENGTH = 2500;
@@ -37,8 +41,18 @@ public class SplashActivity extends AppCompatActivity {
 
     Intent mainIntent;
 
+    boolean showLogin = true;
+
+    int maxTimes = 5;
+
     int expiresAtNumber =0;
     int currentTimeNumber =0;
+
+    //animations
+    Animation topAnim, bottomAnim;
+    ImageView logo;
+    TextView logoText;
+
 
 
     @Override
@@ -48,6 +62,17 @@ public class SplashActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_splash);
+
+        //Animations
+        topAnim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
+        bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
+
+        logo = (ImageView) findViewById(R.id.splash_logo);
+        logoText = (TextView) findViewById(R.id.splash_text);
+
+        logo.setAnimation(topAnim);
+        logoText.setAnimation(bottomAnim);
+
 
         downloadProducts();
 
@@ -60,8 +85,15 @@ public class SplashActivity extends AppCompatActivity {
                 Log.e("El numero usuarios en BBDD son",""+cursor.getCount());
 
                 if(cursor.getCount()==0){
-                    mainIntent = new Intent(SplashActivity.this, LogInActivity.class);
-                    Log.e("LOGGED (SI/NO)","NO");
+                    showLogin = loadPreferences();
+                    if(showLogin==true){
+                        mainIntent = new Intent(SplashActivity.this, LogInActivity.class);
+                        //Log.e("LOGGED (SI/NO)","NO");
+                    }
+                    else {
+                        mainIntent = new Intent(SplashActivity.this, HomeActivity.class);
+                    }
+
                 }
                 else{
                     cursor.moveToFirst();
@@ -97,11 +129,13 @@ public class SplashActivity extends AppCompatActivity {
                         mainIntent = new Intent(SplashActivity.this, HomeActivity.class);
                         Log.e("LOGGED (SI/NO)","SI");
                         Log.e("TOKEN IS",accessToken);
+
                     }
 
                     else{
                         mainIntent = new Intent(SplashActivity.this, LogInActivity.class);
                         Log.e("LOGGED (SI/NO)","NO");
+                        //Aqui borrar BBDD Customer
                     }
 
 
@@ -114,6 +148,72 @@ public class SplashActivity extends AppCompatActivity {
         }, SPLASH_LENGTH);
 
 
+    }
+
+    private boolean loadPreferences() {
+
+            boolean showLogin = false;
+
+            SharedPreferences preferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
+            String firstSession = preferences.getString("firstTime","null");
+            int numberTimes = 0;
+            int auxNumber=0;
+
+
+
+            if(firstSession.equals("null")){
+                Log.e("SHARED PREFERENCES","Primera sesión");
+                //Toast.makeText(this, "SHARED PREFERENCES VACIO", Toast.LENGTH_LONG).show();
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("firstTime","no");
+                editor.commit();
+                showLogin=true;
+            }
+
+            else{
+                String value = preferences.getString("numberTimes","null");
+
+                Log.e("SHARED PREFERENCES","Valor de Value: "+value);
+
+                if(!value.equals("null")){
+                    Log.e("SHARED PREFERENCES","Entra aqui 1");
+
+
+
+                    //numberTimes = Integer.getInteger(value);
+                    numberTimes = Integer.parseInt(value);
+
+                    if (numberTimes<=maxTimes){
+                        Log.e("SHARED PREFERENCES","Entra aqui 2");
+                        showLogin=false;
+                        numberTimes = numberTimes + 1;
+
+                    }
+                    else {
+                        Log.e("SHARED PREFERENCES","Entra aqui 3");
+                        showLogin=true;
+                        numberTimes = 0;
+
+                    }
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("numberTimes",String.valueOf(numberTimes));
+                    editor.commit();
+
+                }
+                else {
+                    Log.e("SHARED PREFERENCES","Primera vez");
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("numberTimes","1");
+                    editor.commit();
+                    showLogin=true;
+                }
+
+
+            }
+
+
+
+            return showLogin;
     }
 
     protected void onStart() {

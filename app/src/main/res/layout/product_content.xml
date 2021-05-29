@@ -11,15 +11,15 @@
 
     <ImageView
         android:id="@+id/imageview_product_image"
-        android:layout_height="170dp"
-        android:layout_width="170dp"
+        android:layout_height="150dp"
+        android:layout_width="150dp"
         android:scaleType="centerCrop"
         android:layout_marginBottom="10dp"
         />
 
     <TableLayout
         android:layout_height="85dp"
-        android:layout_width="170dp"
+        android:layout_width="150dp"
         >
 
 
@@ -31,33 +31,36 @@
             <TextView
                 android:fontFamily="@font/montserrat"
                 android:id="@+id/product_title"
-                android:layout_width="170dp"
+                android:layout_width="150dp"
                 android:layout_height="35dp"
                 android:layout_span="1"
                 android:gravity="center"
                 android:text="@string/productTextView_title"
                 android:textColor="#020202"
-                android:textSize="15sp"
+                android:textSize="10sp"
                 android:textStyle="bold" />
 
 
         </TableRow>
 
         <TableRow
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
 
             <TextView
+
                 android:fontFamily="@font/montserrat"
                 android:id="@+id/product_compare_at_price"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:layout_gravity="center"
+                android:gravity="center"
                 android:text="@string/productTextView_compareAtPrice"
                 android:background="@drawable/strike_through"
                 android:textColor="@color/red"
-                android:textSize="15dp"
+                android:textSize="10dp"
                 android:textStyle="bold"
 
                 >
@@ -76,13 +79,12 @@
 
                 <TextView
                     android:fontFamily="@font/montserrat"
-                    android:layout_marginTop="-3dp"
                     android:id="@+id/product_price"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:text="@string/productTextView_price"
                     android:textColor="#3F51B5"
-                    android:textSize="15dp"
+                    android:textSize="10dp"
                     android:textStyle="bold"
                     android:layout_gravity="center"
 

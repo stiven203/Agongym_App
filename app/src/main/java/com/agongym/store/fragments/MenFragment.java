@@ -3,19 +3,26 @@ package com.agongym.store.fragments;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-//import androidx.appcompat.widget.SearchView;
+import android.widget.Toast;
+import androidx.appcompat.widget.SearchView;
 
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.agongym.store.activities.HomeActivity;
 import com.agongym.store.activities.ProductDetailsActivity;
 import com.agongym.store.adapters.ProductsAdapter;
 import com.agongym.store.database.DataContract;
@@ -31,12 +38,15 @@ public class MenFragment extends Fragment{
     int columnIndex;
     String productId;
 
+    SearchView mSearchView;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //manViewModel = new ViewModelProvider(this).get(ManViewModel.class);
 
-        View root = inflater.inflate(R.layout.men_fragment, container, false);
+
+
+        View root = inflater.inflate(R.layout.fragment_men, container, false);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("ΛGONGYM");
 
@@ -65,12 +75,6 @@ public class MenFragment extends Fragment{
 
         menGV.setAdapter(pa);
 
-        /////////////////////////////
-        //test search view
-        //mSearchView = (SearchView) getActivity().findViewById(R.id.search_product);
-        menGV.setTextFilterEnabled(true);
-        //setUpSearchView();
-        //
 
         menGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -90,5 +94,35 @@ public class MenFragment extends Fragment{
     }
 
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_action_bar, menu);
+        super.onCreateOptionsMenu(menu, inflater);
 
+        MenuItem menuItem = menu.findItem(R.id.search_product);
+
+        mSearchView=(SearchView) menuItem.getActionView();
+        Log.e("INFO"," LLEGA AQUI");
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(getActivity().getApplicationContext(),"Se ha escrito: "+query, Toast.LENGTH_LONG).show();
+                Log.e("INFO","SALTA EL METODO");
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Toast.makeText(getActivity().getApplicationContext(),"Se ha escrito: "+newText, Toast.LENGTH_LONG).show();
+                Log.e("INFO","SALTA EL METODO");
+                return false;
+            }
+        });
+
+
+
+
+    }
 }

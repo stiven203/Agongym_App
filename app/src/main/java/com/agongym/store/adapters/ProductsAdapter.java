@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
-public class ProductsAdapter extends BaseAdapter implements Filterable {
+public class ProductsAdapter extends BaseAdapter{
 
     Cursor mCursor = null;
     private Context mContext;
@@ -95,6 +95,7 @@ public class ProductsAdapter extends BaseAdapter implements Filterable {
 
 
     //test search
+    /*
     public Filter getFilter() {
         return new Filter() {
 
@@ -116,7 +117,7 @@ public class ProductsAdapter extends BaseAdapter implements Filterable {
                 return oReturn;
             }
 
-            @SuppressWarnings("unchecked")
+
             @Override
             protected void publishResults(CharSequence constraint,
                                           FilterResults results) {
@@ -124,7 +125,11 @@ public class ProductsAdapter extends BaseAdapter implements Filterable {
                 notifyDataSetChanged();
             }
         };
+
+
     }
+    */
+
 
 
 

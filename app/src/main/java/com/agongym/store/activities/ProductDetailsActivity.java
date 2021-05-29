@@ -44,13 +44,18 @@ public class ProductDetailsActivity extends AppCompatActivity {
     String cartSize;
     int cartQuantity=1;
     boolean variantState=true;
+    String origin = "";
 
     ContentValues cartContentValues;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        origin=getIntent().getExtras().getString("origin");
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_product_details);
+
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -60,6 +65,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         Log.d("ID que llega", getIntent().getExtras().getString("productId"));
         productId=getIntent().getExtras().getString("productId");
+
 
         String[] selectionArgs = {getIntent().getExtras().getString("productId")};
 
@@ -229,7 +235,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
             description=cursor.getString(columnIndex1);
         }
 
-        //Description Button
+        //Description TV
         descriptionTV = (TextView) findViewById(R.id.descriptionTextView);
         descriptionTV.setText(description);
         //

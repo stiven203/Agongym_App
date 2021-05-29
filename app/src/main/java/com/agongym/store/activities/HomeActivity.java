@@ -1,7 +1,10 @@
 package com.agongym.store.activities;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -30,14 +33,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     NotificationBadge badge;
     Cursor cursor;
+    int result = 0;
     Intent intent;
-    ImageView cart_icon;
+    ImageView cartIcon;
     int nProducts=0;
+    String number = "+34657992807";
+    boolean installed = false;
 
     TextView customerNameTextView;
     String customerName = "";
 
     SearchView mSearchView;
+
+    NavigationView navigationView;
+    boolean loginHide = false;
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -46,6 +55,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        checkLogin();
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -67,6 +77,46 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         NavigationUI.setupWithNavController(navigationView, navController);
 
         updateCustomerNameInfo();
+    }
+
+    private void checkLogin() {
+
+        Cursor cursor =  getContentResolver().query(DataContract.CustomerInternalClass.buildCartUri(), DataContract.CustomerInternalClass.ALL_FIELDS,null,
+                null,null);
+
+        Log.e("HOME MESSAGE", "LLEGA AQUI");
+
+        if(cursor.getCount()>0 && !loginHide){
+            Log.e("HOME MESSAGE", "USUARIO  LOGGEADO");
+            navigationView = (NavigationView) findViewById(R.id.nav_view);
+            Menu nav_login = navigationView.getMenu();
+            nav_login.findItem(R.id.nav_log_in).setVisible(false);
+
+            loginHide=true;
+
+
+
+        }
+
+        else {
+            Log.e("HOME MESSAGE", "USUARIO NO LOGGEADO");
+            navigationView = (NavigationView) findViewById(R.id.nav_view);
+            Menu nav_logout = navigationView.getMenu();
+            Menu nav_account = navigationView.getMenu();
+
+            nav_logout.findItem(R.id.nav_log_out).setVisible(false);
+            nav_account.findItem(R.id.nav_account).setVisible(false);
+        }
+
+
+
+
+
+
+
+
+
+
     }
 
     private void updateCustomerNameInfo() {
@@ -97,10 +147,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-
-
-
-
     }
 
     @Override
@@ -115,13 +161,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-        //test search
-        mSearchView=(SearchView) findViewById(R.id.search_product);
-
-
         //icono carrito
-        cart_icon = (ImageView) view.findViewById(R.id.cart_icon);
-        cart_icon.setOnClickListener(new View.OnClickListener() {
+        cartIcon = (ImageView) view.findViewById(R.id.cart_icon);
+        cartIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -136,6 +178,35 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
+
+        //PRUEBA
+
+        MenuItem menuItem = menu.findItem(R.id.search_product);
+
+        mSearchView=(SearchView) menuItem.getActionView();
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                Toast.makeText(getApplicationContext(),"Se ha escrito: "+query, Toast.LENGTH_LONG).show();
+
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Toast.makeText(getApplicationContext(),"Se ha escrito: "+newText, Toast.LENGTH_LONG).show();
+                return false;
+            }
+        });
+
+
+
+
+
+
 
 
 
@@ -196,6 +267,99 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        Log.e("HOME MESSAGE", "Seleccionado ID: "+item.getItemId());
+
+        if(item.getGroupId()== R.id.nav_log_out){
+            Log.e("HOME MESSAGE", "Seleccionado!!!!!! ");
+        }
+
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                Log.e("HOME MESSAGE", "Seleccionado ID: "+item.getItemId());
+
+                return false;
+            }
+        });
+
         return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id==R.id.whatsapp_menu){
+            //Toast.makeText(getApplicationContext(), "¡Pulsado botón de WHATSAPP!", Toast.LENGTH_LONG).show();
+
+            installed = isWhatsappInstalled("com.whatsapp");
+
+            if(installed){
+                Intent intent =  new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+number));
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "WhatsApp no está instalado!", Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private boolean isWhatsappInstalled(String s) {
+        PackageManager packageManager = getPackageManager();
+        boolean isInstalled;
+
+        try{
+            packageManager.getPackageInfo(s, PackageManager.GET_ACTIVITIES);
+            isInstalled=true;
+        } catch (PackageManager.NameNotFoundException e) {
+            isInstalled=false;
+            e.printStackTrace();
+        }
+
+        return isInstalled;
+
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //PRUEBA LOG OUT
+
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu nav_Logout = navigationView.getMenu();
+
+
+
+        nav_Logout.findItem(R.id.nav_log_out).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                //Log.e("HOME MESSAGE", "Botón clickado");
+
+                //result = getApplicationContext().getContentResolver().delete(DataContract.CustomerInternalClass.buildCartUri(),null);
+                //Log.e("HOME MESSAGE", "Numero de usuarios borrados: "+result);
+
+                Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
+                startActivity(intent);
+                finish();
+
+                return false;
+            }
+        });
+
+        //
+
+
     }
 }

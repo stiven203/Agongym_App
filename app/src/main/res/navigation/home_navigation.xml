@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/nav_man"
         android:name="com.agongym.store.fragments.MenFragment"
-        tools:layout="@layout/men_fragment" >
+        tools:layout="@layout/fragment_men" >
         <action
             android:id="@+id/action_nav_man_to_nav_main"
             app:destination="@id/nav_main" />
@@ -66,6 +66,9 @@
         <action
             android:id="@+id/action_nav_outlet_to_nav_main"
             app:destination="@id/nav_main" />
+        <action
+            android:id="@+id/action_nav_outlet_to_nav_account"
+            app:destination="@id/nav_account" />
     </fragment>
     <fragment
         android:id="@+id/nav_account"
@@ -75,6 +78,9 @@
         <action
             android:id="@+id/action_accountFragment_to_nav_main"
             app:destination="@id/nav_main" />
+        <action
+            android:id="@+id/action_nav_account_to_nav_outlet"
+            app:destination="@id/nav_outlet" />
     </fragment>
     <activity
         android:id="@+id/nav_log_in"

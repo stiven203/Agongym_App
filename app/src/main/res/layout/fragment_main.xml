@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="fitStart"
-                android:src="@drawable/men_image">
+                android:src="@drawable/men_image_2">
 
             </ImageView>
 
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="fitStart"
-                android:src="@drawable/women_image">
+                android:src="@drawable/women_image_2">
 
             </ImageView>
 
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="fitStart"
-                android:src="@drawable/acc_image">
+                android:src="@drawable/acc_image_2">
 
             </ImageView>
 

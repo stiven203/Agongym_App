@@ -6,78 +6,75 @@
     android:layout_height="match_parent"
     tools:context="com.agongym.store.activities.CartActivity"
 
+
     >
 
-    <LinearLayout
+
+    <ListView
+        android:id="@+id/list_view_cart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_marginBottom="110dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ListView
-            android:id="@+id/list_view_cart"
-            android:layout_width="match_parent"
-            android:layout_height="540dp">
+    </ListView>
 
-        </ListView>
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/layout_subtotal_border"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/buttonPlaceOrder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
 
 
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
-            android:background="@drawable/layout_subtotal_border"
-            >
-
-            <TextView
-                android:fontFamily="@font/montserrat"
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:text="SUBTOTAL"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                >
-
-            </TextView>
-
-            <TextView
-                android:fontFamily="@font/montserrat"
-                android:id="@+id/subtotal_text_view"
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:textSize="20dp"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:textStyle="bold"
-                >
-
-            </TextView>
-
-        </LinearLayout>
-
-        <Button
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="68dp"
             android:fontFamily="@font/montserrat"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
-            android:id="@+id/buttonPlaceOrder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/place_order"
+            android:gravity="center"
+            android:text="SUBTOTAL"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:textStyle="bold">
 
-            />
+        </TextView>
 
+        <TextView
+            android:id="@+id/subtotal_text_view"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
 
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:textStyle="bold">
+
+        </TextView>
 
     </LinearLayout>
 
-
-
-
+    <Button
+        android:id="@+id/buttonPlaceOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/place_order"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.agongym.store.Apollo;
+import com.agongym.store.utils.Apollo;
 import com.agongym.store.activities.type.CustomerAccessTokenCreateInput;
 import com.agongym.store.activities.type.CustomerCreateInput;
 import com.agongym.store.database.DataContract;
@@ -50,6 +50,9 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         i=0;
 
         x=0;
@@ -209,6 +212,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
     }
+    
     public void generateToken(){
 
 
@@ -285,41 +289,27 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void insertCustomerDataBase(String token, String expiresAt) {
 
-        //Apollo Client
-        Apollo apolloObject = new Apollo();
-        ApolloClient apolloClient = apolloObject.getApolloClient();
-        //
 
-        //Pedir al servidor nombre y apellidos del cliente
-        apolloClient.query(new CustomerQuery(token)).enqueue(new ApolloCall.Callback<CustomerQuery.Data>() {
-            @Override
-            public void onResponse(@NotNull Response<CustomerQuery.Data> response) {
+        customerFirstName = name.getText().toString();
+        Log.e("SIGN UP",customerFirstName);
+        customerLastName = lastName.getText().toString();
+        Log.e("SIGN UP",customerLastName);
+        customerEmail = email.getText().toString();
+        Log.e("SIGN UP",customerEmail);
 
-                customerFirstName = response.getData().customer.firstName;
-                customerLastName = response.getData().customer.lastName;
-                customerEmail = response.getData().customer.email;
 
-                //
-                i = 1;
-            }
-
-            @Override
-            public void onFailure(@NotNull ApolloException e) {
-
-                Log.e("Apollo Error", e.getMessage());
-
-            }
-        });
-
-        while (i == 0) {
-        }
-
-        //insercción BBDD
+        //insercción BBDD CUSTOMER
         customerContentValues = new ContentValues();
         CustomerModel customerModel = new CustomerModel(token,expiresAt,customerFirstName,customerLastName,customerEmail);
 
         customerContentValues = DataContract.CustomerInternalClass.CustomerToContentValues(customerModel);
         Uri x =getContentResolver().insert(DataContract.CustomerInternalClass.buildCartUri(),customerContentValues);
+
+        //
+
+
+
+
 
     }
 

@@ -9,11 +9,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.agongym.store.Apollo;
+import com.agongym.store.utils.Apollo;
 import com.agongym.store.activities.type.CheckoutCreateInput;
 import com.agongym.store.activities.type.CheckoutLineItemInput;
 import com.agongym.store.activities.type.MailingAddressInput;
@@ -41,6 +42,9 @@ public class CartActivity extends AppCompatActivity {
     Intent intent;
     TextView subtotalTV;
     String subtotalPrice="";
+
+    int columnIndex;
+    String productId;
 
     //Valores
     CustomerQuery.DefaultAddress defaultAddress =  null;
@@ -91,6 +95,23 @@ public class CartActivity extends AppCompatActivity {
         ca = new CartAdapter(this, cursor);
         cartLV.setAdapter(ca);
         ca.notifyDataSetChanged();
+
+        cartLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                cursor.moveToPosition(position);
+                columnIndex = cursor.getColumnIndexOrThrow(DataContract.CartInternalClass.PRODUCT_ID);
+                productId = cursor.getString(columnIndex);
+
+                intent = new Intent(getApplicationContext(), ProductDetailsAuxActivity.class);
+                intent.putExtra("productId",productId);
+                startActivity(intent);
+
+            }
+        });
+
+
 
 
 
